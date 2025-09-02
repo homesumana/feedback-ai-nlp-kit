@@ -72,3 +72,31 @@ export OPENAI_API_KEY="sk-xxxx"
 ---
 
 Made with ❤️
+
+
+## ใช้งานด้วย Docker Compose
+
+> สร้างโฟลเดอร์ `data/` ใส่ไฟล์ CSV ของคุณ (เช่น `data/feedback.csv`) และโฟลเดอร์ว่าง `outputs/`
+
+สร้าง/รันภาพรวม:
+```bash
+docker compose build
+```
+
+1) รัน pipeline เพื่อประมวลผล CSV → สร้างไฟล์ใน `outputs/`
+```bash
+docker compose run --rm pipeline
+```
+> เปลี่ยนพาธ CSV ได้โดยแก้ที่ `docker-compose.yml` (args ของ `--csv_path`)
+
+2) เปิด Dashboard ที่พอร์ต 8501
+```bash
+docker compose up app
+# เปิด http://localhost:8501
+```
+
+> ถ้าใช้ GPT สำหรับสรุป ใส่คีย์:
+```bash
+export OPENAI_API_KEY=sk-xxxx   # Linux/macOS
+setx OPENAI_API_KEY sk-xxxx     # Windows PowerShell (เปิดใหม่หลังตั้งค่า)
+```

@@ -1,0 +1,28 @@
+
+version: "3.9"
+services:
+  app:
+    build: .
+    container_name: feedback-app
+    ports:
+      - "8501:8501"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    volumes:
+      - ./data:/workspace/data
+      - ./outputs:/workspace/outputs
+    command: >
+      bash -lc "streamlit run app/streamlit_app.py
+      --server.headless true --server.port 8501 --server.address 0.0.0.0"
+
+  pipeline:
+    build: .
+    container_name: feedback-pipeline
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    volumes:
+      - ./data:/workspace/data
+      - ./outputs:/workspace/outputs
+    # Run once to generate outputs from a CSV mounted in ./data
+    entrypoint: ["python"]
+    command: ["scripts/pipeline.py", "--csv_path", "/workspace/data/feedback.csv", "--out_dir", "/workspace/outputs"]
