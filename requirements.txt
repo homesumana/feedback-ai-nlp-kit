@@ -1,0 +1,15 @@
+
+pandas>=2.2
+numpy>=1.26
+pythainlp>=5.0.0
+scikit-learn>=1.4
+sentence-transformers>=3.0.0
+bertopic>=0.16.0
+umap-learn>=0.5.6
+hdbscan>=0.8.38.post1
+wordcloud>=1.9.3
+matplotlib>=3.8
+plotly>=5.22.0
+tqdm>=4.66
+openai>=1.40.0
+python-dotenv>=1.0.1
